@@ -1,20 +1,47 @@
 #!/usr/bin/python3
-"""Find minimum number of operations to create string with COPY & PASTE"""
 
-from math import sqrt
+"""
+Minimum Operations Module
+
+This module contains a function that
+calculates the minimum number of operations
+needed to reach a target number of characters in a file, starting
+with a single character.
+The only operations allowed are 'Copy All' and 'Paste'.
+"""
+
+import math
 
 
 def minOperations(n):
-    """Sums all the factors of n to find the 'minimum operations'"""
-    sumFactors = 0
+    """
+    Calculate the minimum number of operations to achieve n
+    'H' characters in the file.
+
+    Parameters:
+    n (int): The target number of 'H' characters to achieve.
+
+    Returns:
+    int: The minimum number of operations required to achieve n characters.
+    """
+
+    # Check if n is less than or equal to 1, where the task is impossible
     if n <= 1:
         return 0
-    for i in range(2, int(sqrt(n) + 1)):
-        while n % i == 0:  # i is a factor
-            sumFactors += i
-            n /= i
-            if n <= 1:
-                break
+
+    # Initialize the operations count
+    operations = 0
+
+    # Iterate through potential factors of n, starting from 2
+    for i in range(2, int(math.sqrt(n)) + 1):
+        # While n is divisible by i, divide n by i and
+        # increment operations count
+        while n % i == 0:
+            operations += i
+            n //= i
+
+    # If n is a prime number, add it to the operations count
     if n > 1:
-        sumFactors += int(n)
-    return sumFactors
+        operations += n
+
+    return operations
